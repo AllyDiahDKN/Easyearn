@@ -146,7 +146,7 @@ if ($result->num_rows > 0) {
 											<tbody>
 						<?php
 // Step 2: Query the database
-$sql = "SELECT * FROM user";
+$sql = "SELECT * FROM user ORDER BY user_id DESC";
 $result = $conn->query($sql);
 
 // Step 3: Loop through the result set
@@ -196,8 +196,8 @@ if ($result->num_rows > 0) {
 
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="user-profile.php?user_id='.$row["user_id"].'">View</a>
-                            <a class="dropdown-item" href="#">Edit</a>
-                            <a class="dropdown-item" href="#">Delete</a>
+                            <a class="dropdown-item" href="edit_brand.php?user_id='.$row['user_id'].'" name="Edit" id="userEdit">Edit</a>
+							<a class="dropdown-item" href="deleted_user.php?user_id='.$row['user_id'].'" name="Delete" id="userDelete">Delete</a>
                         </div>
                     </div>
                 </td>';
