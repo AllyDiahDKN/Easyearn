@@ -45,7 +45,7 @@ require_once '../db.php';?>
 				<div class="content">
 					<div class="breadcrumb-wrapper breadcrumb-contacts">
 						<div>
-							<h1>Seller List</h1>
+							<h1>Customers List</h1>
 							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
 								<span><i class="mdi mdi-chevron-right"></i></span>Seller
 							</p>
@@ -106,8 +106,8 @@ if (mysqli_num_rows($result) > 0) {
 			</button>
 
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Edit</a>
-				<a class="dropdown-item" href="#">Delete</a>
+			<a class="dropdown-item" href="edit_customer.php?id='.$row['id'].'" name="Edit" id="customerEdit">Edit</a>
+			<a class="dropdown-item" href="deleted_customer.php?id='.$row['id'].'" name="Delete" id="customerDelete">Delete</a>
 			</div>
 		</div>
 	</td>';
@@ -130,83 +130,84 @@ if (mysqli_num_rows($result) > 0) {
 						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 							<div class="modal-content">
-								<form>
-									<div class="modal-header px-4">
-										<h5 class="modal-title" id="exampleModalCenterTitle">Add New Seller</h5>
-									</div>
+							<form method="post" action="save_customer.php">
+    <div class="modal-header px-4">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add New Seller</h5>
+    </div>
 
-									<div class="modal-body px-4">
-										<div class="form-group row mb-6">
-											<label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">User
-												Image</label>
+    <div class="modal-body px-4">
+        <div class="row mb-2">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter First Name">
+                </div>
+            </div>
 
-											<div class="col-sm-8 col-lg-10">
-												<div class="custom-file mb-1">
-													<input type="file" class="custom-file-input" id="coverImage"
-														required>
-													<label class="custom-file-label" for="coverImage">Choose
-														file...</label>
-													<div class="invalid-feedback">Example invalid custom file feedback
-													</div>
-												</div>
-											</div>
-										</div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter Last Name">
+                </div>
+            </div>
 
-										<div class="row mb-2">
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="firstName">First name</label>
-													<input type="text" class="form-control" id="firstName" value="John">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="lastName">Last name</label>
-													<input type="text" class="form-control" id="lastName" value="Deo">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Enter City">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="userName">User name</label>
-													<input type="text" class="form-control" id="userName"
-														value="johndoe">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" name="country" id="country" placeholder="Enter Country">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="email">Email</label>
-													<input type="email" class="form-control" id="email"
-														value="johnexample@gmail.com">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="mobile">Mobile</label>
+                    <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter Mobile Number">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="Birthday">Birthday</label>
-													<input type="text" class="form-control" id="Birthday"
-														value="10-12-1991">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Enter Address">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="event">Address</label>
-													<input type="text" class="form-control" id="event"
-														value="Address here">
-												</div>
-											</div>
-										</div>
-									</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="userId">User ID</label>
+                    <input type="text" class="form-control" name="userId" id="userId" placeholder="Enter User ID">
+                </div>
+            </div>
 
-									<div class="modal-footer px-4">
-										<button type="button" class="btn btn-secondary btn-pill"
-											data-bs-dismiss="modal">Cancel</button>
-										<button type="button" class="btn btn-primary btn-pill">Save Contact</button>
-									</div>
-								</form>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="houseNumber">House Number</label>
+                    <input type="text" class="form-control" name="houseNumber" id="houseNumber" placeholder="Enter House Number">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer px-4">
+        <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-pill">Save Contact</button>
+    </div>
+</form>
+
 							</div>
 						</div>
 					</div>

@@ -94,9 +94,11 @@ echo '<td>
 			</button>
 
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Edit</a>
-				<a class="dropdown-item" href="#">Delete</a>
+				<a class="dropdown-item" href="edit_category.php?category_id='.$row['category_id'].'" name="Edit" id="CategoryEdit">Edit</a>
+				<a class="dropdown-item" href="deleted_category.php?category_id='.$row['category_id'].'" name="Delete" id="CategoryDelete">Delete</a>
 			</div>
+
+
 		</div>
 	</td>';
         echo "</tr>";

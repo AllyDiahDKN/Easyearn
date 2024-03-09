@@ -146,7 +146,7 @@ if ($result->num_rows > 0) {
 											<tbody>
 						<?php
 // Step 2: Query the database
-$sql = "SELECT * FROM user";
+$sql = "SELECT * FROM user ORDER BY user_id DESC"; 
 $result = $conn->query($sql);
 
 // Step 3: Loop through the result set
@@ -196,8 +196,8 @@ if ($result->num_rows > 0) {
 
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="user-profile.php?user_id='.$row["user_id"].'">View</a>
-                            <a class="dropdown-item" href="#">Edit</a>
-                            <a class="dropdown-item" href="#">Delete</a>
+                            <a class="dropdown-item" href="edit_brand.php?user_id='.$row['user_id'].'" name="Edit" id="userEdit">Edit</a>
+							<a class="dropdown-item" href="deleted_user.php?user_id='.$row['user_id'].'" name="Delete" id="userDelete">Delete</a>
                         </div>
                     </div>
                 </td>';
@@ -222,83 +222,81 @@ if ($result->num_rows > 0) {
 						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 							<div class="modal-content">
-								<form>
-									<div class="modal-header px-4">
-										<h5 class="modal-title" id="exampleModalCenterTitle">Add New Seller</h5>
-									</div>
+							<form action="save_user.php" method="post">
+    <div class="modal-header px-4">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add New Seller</h5>
+    </div>
 
-									<div class="modal-body px-4">
-										<div class="form-group row mb-6">
-											<label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">User
-												Image</label>
+    <div class="modal-body px-4">
+        <div class="row mb-2">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="firstName">First name</label>
+                    <input type="text" class="form-control" name="first_name" id="firstName" value="John">
+                </div>
+            </div>
 
-											<div class="col-sm-8 col-lg-10">
-												<div class="custom-file mb-1">
-													<input type="file" class="custom-file-input" id="coverImage"
-														required>
-													<label class="custom-file-label" for="coverImage">Choose
-														file...</label>
-													<div class="invalid-feedback">Example invalid custom file feedback
-													</div>
-												</div>
-											</div>
-										</div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="lastName">Last name</label>
+                    <input type="text" class="form-control" name="last_name" id="lastName" value="Deo">
+                </div>
+            </div>
 
-										<div class="row mb-2">
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="firstName">First name</label>
-													<input type="text" class="form-control" id="firstName" value="John">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="userName">User name</label>
+                    <input type="email" class="form-control" name="username" id="userName" value="johnexample@gmail.com">
+                </div>
+            </div>            
 
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="lastName">Last name</label>
-													<input type="text" class="form-control" id="lastName" value="Deo">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="mobile">Mobile</label>
+                    <input type="text" class="form-control" name="mobile" id="mobile" value="">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="userName">User name</label>
-													<input type="text" class="form-control" id="userName"
-														value="johndoe">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="email">Email</label>
-													<input type="email" class="form-control" id="email"
-														value="johnexample@gmail.com">
-												</div>
-											</div>
+          <!--  <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="activation">Activation</label>
+                    <select class="form-select" name="activation" id="activation">
+                        <option value="0">Inactive</option>
+                        <option value="1">Active</option>
+                    </select>
+                </div>
+            </div>-->
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="Birthday">Birthday</label>
-													<input type="text" class="form-control" id="Birthday"
-														value="10-12-1991">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="address_id">Address ID</label>
+                    <input type="text" class="form-control" name="address_id" id="address_id" value="">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="event">Address</label>
-													<input type="text" class="form-control" id="event"
-														value="Address here">
-												</div>
-											</div>
-										</div>
-									</div>
+          <!--   <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="commission">Commission</label>
+                    <input type="number" class="form-control" name="commission" id="commission" value="">
+                </div>
+            </div>-->
 
-									<div class="modal-footer px-4">
-										<button type="button" class="btn btn-secondary btn-pill"
-											data-bs-dismiss="modal">Cancel</button>
-										<button type="button" class="btn btn-primary btn-pill">Save Contact</button>
-									</div>
-								</form>
+        </div>
+    </div>
+
+    <div class="modal-footer px-4">
+        <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-pill">Save Seller</button>
+    </div>
+</form>
+
 							</div>
 						</div>
 					</div>
