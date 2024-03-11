@@ -79,6 +79,7 @@ require_once '../db.php';?>
 											</thead>
 
 											<tbody>
+											
 <?php
 // Step 2: Query the database
 $sql = "SELECT * FROM commission";
@@ -87,43 +88,49 @@ $result = mysqli_query($conn, $sql);
 // Step 3: Loop through the result set
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_array($result)) {
-      $sql_orders="SELECT first_name,last_name FROM user WHERE user_id = '".$row['user_id']."'";
-    $result_orders=$conn->query($sql_orders);
-    $row_orders = $result_orders->fetch_assoc();
-        // Step 4: Display the retrieved data in the required HTML table format
-        echo "<tr>";
-        echo "<td>" . $row["commission_id"] . "</td>";
-        echo "<td>" . $row_orders["first_name"] . " " . $row_orders["last_name"] ." (".$row["user_id"].") </td>";
-                echo "<td>".number_format($row['payment'],0)."</td>";
-        echo "<td>" . $row["issued_by"] . "</td>";
-
-        echo "<td>" . $row["reference_number"] . "</td>";
-        echo "<td>" . $row["details"] . "</td>";
+        $sql_orders = "SELECT first_name,last_name FROM user WHERE user_id = '".$row['user_id']."'";
+        $result_orders = $conn->query($sql_orders);
         
-        echo "<td>" . $row["date"] . "</td>";
-echo '<td>
-		<div class="btn-group mb-1">
-			
-			<button type="button"
-				class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-				data-bs-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false" data-display="static">
-				<span class="sr-only">Info</span>
-			</button>
+        // Check if the query was successful and if it returned any rows
+        if ($result_orders && $result_orders->num_rows > 0) {
+            $row_orders = $result_orders->fetch_assoc();
 
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Edit</a>
-				<a class="dropdown-item" href="#">Delete</a>
-			</div>
-		</div>
-	</td>';
-        echo "</tr>";
+            // Display the retrieved data in the required HTML table format
+            echo "<tr>";
+            echo "<td>" . $row["commission_id"] . "</td>";
+            echo "<td>" . $row_orders["first_name"] . " " . $row_orders["last_name"] ." (".$row["user_id"].") </td>";
+            echo "<td>".number_format($row['payment'],0)."</td>";
+            echo "<td>" . $row["issued_by"] . "</td>";
+            echo "<td>" . $row["reference_number"] . "</td>";
+            echo "<td>" . $row["details"] . "</td>";
+            echo "<td>" . $row["date"] . "</td>";
+            echo '<td>
+                    <div class="btn-group mb-1">
+                        <button type="button"
+                            class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" data-display="static">
+                            <span class="sr-only">Info</span>
+                        </button>
+                        <div class="dropdown-menu">
+						<a class="dropdown-item" href="edit_commission.php?commission_id='.$row['commission_id'].'" name="Edit" id="commissionEdit">Edit</a>
+						<a class="dropdown-item" href="deleted_commission.php?commission_id='.$row['commission_id'].'" name="Delete" id="commissionDelete">Delete</a>
+                        </div>
+                    </div>
+                </td>';
+            echo "</tr>";
+        } else {
+            // Handle case where no user data is found
+            echo "<tr>";
+            echo "<td colspan='7'>No user data found</td>";
+            echo "</tr>";
+        }
     }
 } else {
-    echo "0 results";
+    echo "<tr><td colspan='7'>0 results</td></tr>";
 }
-
 ?>
+
 					
 											</tbody>
 										</table>
@@ -137,59 +144,56 @@ echo '<td>
 						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 							<div class="modal-content">
-								<form>
-									<div class="modal-header px-4">
-										<h5 class="modal-title" id="exampleModalCenterTitle">Add Commission</h5>
-									</div>
+							<form>
+    <div class="modal-header px-4">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Commission</h5>
+    </div>
 
-									<div class="modal-body px-4">
-										<div class="row mb-2">
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="firstName">Choose Seller</label>
-													<input type="text" class="form-control" id="firstName" value="John">
-												</div>
-											</div>
+    <div class="modal-body px-4">
+        <div class="row mb-2">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="chooseSeller">Paid To</label>
+                    <input type="text" class="form-control" id="chooseSeller" placeholder="Enter seller's name">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="lastName">Paid Through</label>
-													<input type="text" class="form-control" id="lastName" value="Deo">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="paidThrough">Paid Through</label>
+                    <input type="text" class="form-control" id="paidThrough" placeholder="Enter payment method">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="userName">To</label>
-													<input type="text" class="form-control" id="userName"
-														value="johndoe">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="to">To</label>
+                    <input type="text" class="form-control" id="to" placeholder="Enter recipient's name">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="email">Amount</label>
-													<input type="email" class="form-control" id="email"
-														value="johnexample@gmail.com">
-												</div>
-											</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="amount">Amount</label>
+                    <input type="number" class="form-control" id="amount" placeholder="Enter payment amount">
+                </div>
+            </div>
 
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="event">Reference</label>
-													<input type="text" class="form-control" id="event"
-														value="Address here">
-												</div>
-											</div>
-										</div>
-									</div>
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="reference">Reference</label>
+                    <input type="text" class="form-control" id="reference" placeholder="Enter reference number">
+                </div>
+            </div>
+        </div>
+    </div>
 
-									<div class="modal-footer px-4">
-										<button type="button" class="btn btn-secondary btn-pill"
-											data-bs-dismiss="modal">Cancel</button>
-										<button type="button" class="btn btn-primary btn-pill">Save Contact</button>
-									</div>
-								</form>
+    <div class="modal-footer px-4">
+        <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary btn-pill">Save Commission</button>
+    </div>
+</form>
+
 							</div>
 						</div>
 					</div>
