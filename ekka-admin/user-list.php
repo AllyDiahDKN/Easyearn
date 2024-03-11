@@ -196,7 +196,7 @@ if ($result->num_rows > 0) {
 
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="user-profile.php?user_id='.$row["user_id"].'">View</a>
-                            <a class="dropdown-item" href="edit_brand.php?user_id='.$row['user_id'].'" name="Edit" id="userEdit">Edit</a>
+                            <a class="dropdown-item" href="edit_user.php?user_id='.$row['user_id'].'" name="Edit" id="userEdit">Edit</a>
 							<a class="dropdown-item" href="deleted_user.php?user_id='.$row['user_id'].'" name="Delete" id="userDelete">Delete</a>
                         </div>
                     </div>
