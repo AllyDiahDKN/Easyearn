@@ -1,3 +1,6 @@
+To save the email in the `username` column in the database, you need to use the correct variable name when inserting into the database. In your code, you're using `$username` to represent the email, so you should use that variable when constructing the SQL query. Here's the corrected PHP code:
+
+```php
 <?php
 session_start();
 
@@ -13,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Step 2: Validate user input
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
-    $email = $_POST['email'];
+    $email = $_POST['username']; // Change variable name to 'email'
     $phonenumber = $_POST['phonenumber'];
     $password = $_POST['password'];
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hash the password
@@ -25,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Mobile number should start with a country code (e.g., +255)";
     } else {
         // Step 3: Check if email already exists
-        $checkEmailQuery = "SELECT * FROM user WHERE email = '$email'";
+        $checkEmailQuery = "SELECT * FROM user WHERE username = '$email'"; // Use email as username
         $result = $conn->query($checkEmailQuery);
 
         if ($result->num_rows > 0) {
@@ -53,6 +56,9 @@ function startsWith($haystack, $needle) {
     return strncmp($haystack, $needle, strlen($needle)) === 0;
 }
 ?>
+```
+
+With this modification, the email provided in the form will be saved in the `username` column of the database.
 
  <!DOCTYPE html>
  <html lang="en">
@@ -151,7 +157,7 @@ function startsWith($haystack, $needle) {
                                 </span>
                                 <span class="ec-register-wrap ec-register-half">
                                     <label>Email*</label>
-                                    <input type="email" name="email" placeholder="Enter your email" required />
+                                    <input type="email" name="username" placeholder="Enter your email" required />
                                 </span>
                                 <span class="ec-register-wrap ec-register-half">
                                     <label>Phone Number*</label>
