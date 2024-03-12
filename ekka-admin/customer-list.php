@@ -168,7 +168,28 @@ if (mysqli_num_rows($result) > 0) {
             <div class="col-lg-6">
                 <div class="form-group mb-4">
                     <label for="country">Country</label>
-                    <input type="text" class="form-control" name="country" id="country" placeholder="Enter Country">
+                 
+                                        <select name="country" id="country"
+                                            class="form-control">
+                                            <option selected disabled>Country *</option>
+											<?php
+// Fetch countries from the database
+$sql = "SELECT name FROM countries";
+$result = $conn->query($sql);
+
+// Check if there are countries
+if ($result->num_rows > 0) {
+    // Output the options
+    while ($row = $result->fetch_assoc()) {
+        $countryName = $row['name'];
+        echo "<option value=\"$countryName\">$countryName</option>";
+    }
+} else {
+    echo "<option value=\"\">No countries found</option>";
+}
+?>
+
+                                        </select>
                 </div>
             </div>
 
@@ -187,10 +208,31 @@ if (mysqli_num_rows($result) > 0) {
             </div>
 
             <div class="col-lg-6">
-                <div class="form-group mb-4">
-                    <label for="userId">User ID</label>
-                    <input type="text" class="form-control" name="userId" id="userId" placeholder="Enter User ID">
-                </div>
+			<div class="form-group mb-4">
+    <label for="userId">User</label>
+    <select name="userId" id="userId" class="form-control" required>
+        <option selected disabled>Select User *</option>
+        <?php
+        // Fetch user information from the database
+        $sql = "SELECT user_id, first_name, last_name FROM user";
+        $result = $conn->query($sql);
+
+        // Check if there are users
+        if ($result->num_rows > 0) {
+            // Output the options
+            while ($row = $result->fetch_assoc()) {
+                $userId = $row['user_id'];
+                $firstName = $row['first_name'];
+                $lastName = $row['last_name'];
+                echo "<option value=\"$userId\">$userId - $firstName $lastName</option>";
+            }
+        } else {
+            echo "<option value=\"\">No users found</option>";
+        }
+        ?>
+    </select>
+</div>
+
             </div>
 
             <div class="col-lg-6">

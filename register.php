@@ -34,8 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error_message = "Email address already used by another user";
         } else {
             // Step 4: Insert user into the database
-            $insertUserQuery = "INSERT INTO user (first_name, last_name, username, mobile, password) 
-                                VALUES ('$firstname', '$lastname', '$email', '$phonenumber', $transferto,'$hashedPassword')";
+            $insertUserQuery = "INSERT INTO user (first_name, last_name, username, mobile, Transfer_to, password) 
+            VALUES ('$firstname', '$lastname', '$email', '$phonenumber', '$transferto', '$hashedPassword')";
+
 
             if ($conn->query($insertUserQuery) === TRUE) {
                 // Registration successful, redirect to login page
