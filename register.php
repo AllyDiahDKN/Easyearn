@@ -1,6 +1,3 @@
-To save the email in the `username` column in the database, you need to use the correct variable name when inserting into the database. In your code, you're using `$username` to represent the email, so you should use that variable when constructing the SQL query. Here's the corrected PHP code:
-
-```php
 <?php
 session_start();
 
@@ -18,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lastname = $_POST['lastname'];
     $email = $_POST['username']; // Change variable name to 'email'
     $phonenumber = $_POST['phonenumber'];
+    $transferto = $_POST['Transfer_to'];
     $password = $_POST['password'];
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hash the password
 
@@ -37,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Step 4: Insert user into the database
             $insertUserQuery = "INSERT INTO user (first_name, last_name, username, mobile, password) 
-                                VALUES ('$firstname', '$lastname', '$email', '$phonenumber', '$hashedPassword')";
+                                VALUES ('$firstname', '$lastname', '$email', '$phonenumber', $transferto,'$hashedPassword')";
 
             if ($conn->query($insertUserQuery) === TRUE) {
                 // Registration successful, redirect to login page
@@ -56,10 +54,6 @@ function startsWith($haystack, $needle) {
     return strncmp($haystack, $needle, strlen($needle)) === 0;
 }
 ?>
-```
-
-With this modification, the email provided in the form will be saved in the `username` column of the database.
-
  <!DOCTYPE html>
  <html lang="en">
     <head>
@@ -162,6 +156,11 @@ With this modification, the email provided in the form will be saved in the `use
                                 <span class="ec-register-wrap ec-register-half">
                                     <label>Phone Number*</label>
                                     <input type="text" name="phonenumber" placeholder="Enter your phone number"
+                                        required />
+                                </span>
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>Transfer To*</label>
+                                    <input type="text" name="Transfer_to" placeholder="Enter another phone number"
                                         required />
                                 </span>
                                 <span class="ec-register-wrap ec-register-half">
