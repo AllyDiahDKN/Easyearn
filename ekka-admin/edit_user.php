@@ -23,52 +23,52 @@ require_once '../db.php'; // Include your database connection file here
                 <!-- Add Brand Modal -->
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
-                        <?php
-                            // Check if user ID is provided in the URL
-                                      // Check if user ID is provided in the URL
-                                      if (isset($_GET['user_id'])) {
-                                        $userId = $_GET['user_id'];
-        
-                                        // Retrieve user data for editing
-                                        $sql = "SELECT * FROM user WHERE user_id = '$userId'";
-                                        $result = $conn->query($sql);
-        
-                                        if ($result->num_rows > 0) {
-                                            // Fetch user data
-                                            $userData = $result->fetch_assoc();
-        
-                                            // Check if the form is submitted for updating user
-                                            if(isset($_POST['update_user'])) {
-                                                // Extract form data
-                                                $newFirstName = $_POST['first_name'];
-                                                $newLastName = $_POST['last_name'];
-                                                $newUsername = $_POST['username'];
-                                                $newEmail = $_POST['email'];
-                                                $newPassword = $_POST['password'];
-                                                $newMobile = $_POST['mobile'];
-                                                $newAddressId = $_POST['address_id'];
-        
-                                                // Update user data in the user table
-                                                $updateQuery = "UPDATE user SET 
-                                                                first_name = '$newFirstName', 
-                                                                last_name = '$newLastName', 
-                                                                username = '$newUsername', 
-                                                                email = '$newEmail', 
-                                                                password = '$newPassword', 
-                                                                mobile = '$newMobile', 
-                                                                address_id = '$newAddressId' 
-                                                                WHERE id = '$userId'";
-        
-                                                if ($conn->query($updateQuery) === TRUE) {
-                                                    // Redirect back to user-list.php
-                                                    header("Location: user-list.php");
-                                                    exit();
-                                                } else {
-                                                    echo "Error updating user: " . $conn->error;
-                                                }
-                                            }
-                                        }
-                                        ?>                            
+                    <?php
+// Check if user ID is provided in the URL
+if (isset($_GET['user_id'])) {
+    $userId = $_GET['user_id'];
+
+    // Retrieve user data for editing
+    $sql = "SELECT * FROM user WHERE user_id = '$userId'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Fetch user data
+        $userData = $result->fetch_assoc();
+
+        // Check if the form is submitted for updating user
+        if(isset($_POST['update_user'])) {
+            // Extract form data
+            $newFirstName = $_POST['first_name'];
+            $newLastName = $_POST['last_name'];
+            $newUsername = $_POST['username'];
+            //$newEmail = $_POST['email'];
+            $newPassword = $_POST['password'];
+            $newMobile = $_POST['mobile'];
+            $newAddressId = $_POST['address_id'];
+
+            // Update user data in the user table
+            $updateQuery = "UPDATE user SET 
+                            first_name = '$newFirstName', 
+                            last_name = '$newLastName', 
+                            username = '$newUsername',                                                          
+                            password = '$newPassword', 
+                            mobile = '$newMobile', 
+                            address_id = '$newAddressId' 
+                            WHERE user_id = '$userId'";
+
+            if ($conn->query($updateQuery) === TRUE) {
+                // Redirect back to user-list.php
+                header("Location: user-list.php");
+                exit();
+            } else {
+                echo "Error updating user: " . $conn->error;
+            }
+        }
+    }
+
+?> 
+                           
                                 <form action="edit_user.php?user_id=<?php echo $userId; ?>" method="post">
                                     <div class="modal-header px-4">
                                         <h5 class="modal-title" id="exampleModalCenterTitle">Update User</h5>
