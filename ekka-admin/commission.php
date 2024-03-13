@@ -144,7 +144,7 @@ if (mysqli_num_rows($result) > 0) {
 						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 							<div class="modal-content">
-							<form>
+							<form method="post" action="save_commission">
     <div class="modal-header px-4">
         <h5 class="modal-title" id="exampleModalCenterTitle">Add Commission</h5>
     </div>
@@ -154,40 +154,77 @@ if (mysqli_num_rows($result) > 0) {
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="chooseSeller">Paid To</label>
-                    <input type="text" class="form-control" id="chooseSeller" placeholder="Enter seller's name">
+									<select name="userId" id="userId" class="form-control" required>
+						<option selected disabled>Select User *</option>
+						<?php
+						// Fetch user information from the database
+						$sql = "SELECT user_id, first_name, last_name FROM user";
+						$result = $conn->query($sql);
+
+						// Check if there are users
+						if ($result->num_rows > 0) {
+							// Output the options
+							while ($row = $result->fetch_assoc()) {
+								$userId = $row['user_id'];
+								$firstName = $row['first_name'];
+								$lastName = $row['last_name'];
+								echo "<option value=\"$userId\">$firstName $lastName ( $userId) </option>";
+							}
+						} else {
+							echo "<option value=\"\">No users found</option>";
+						}
+						?>
+    			</select>
                 </div>
             </div>
 
+			<div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="amount">Amount Paid</label>
+                    <input type="number" class="form-control" id="amount" name="payment" placeholder="Enter payment amount">
+                </div>
+            </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="paidThrough">Paid Through</label>
-                    <input type="text" class="form-control" id="paidThrough" placeholder="Enter payment method">
+                    <label for="paidThrough">Issued by </label>
+					<select name="id" id="id" class="form-control" required>
+						<option selected disabled>Select User(Issuer) *</option>
+						<?php
+						// Fetch user information from the database
+						$sql = "SELECT id, email FROM admin";
+						$result = $conn->query($sql);
+
+						// Check if there are admins
+						if ($result->num_rows > 0) {
+							// Output the options
+							while ($row = $result->fetch_assoc()) {
+								$id = $row['id'];
+								$email = $row['email'];								
+								echo "<option value=\"$id\">$email ( $id) </option>";
+							}
+						} else {
+							echo "<option value=\"\">No issuer found</option>";
+						}
+						?>
+    			</select>
+                    
                 </div>
             </div>
 
-            <div class="col-lg-6">
-                <div class="form-group mb-4">
-                    <label for="to">To</label>
-                    <input type="text" class="form-control" id="to" placeholder="Enter recipient's name">
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="form-group mb-4">
-                    <label for="amount">Amount</label>
-                    <input type="number" class="form-control" id="amount" placeholder="Enter payment amount">
-                </div>
-            </div>
-
-            <div class="col-lg-6">
+			<div class="col-lg-6">
                 <div class="form-group mb-4">
                     <label for="reference">Reference</label>
-                    <input type="text" class="form-control" id="reference" placeholder="Enter reference number">
+                    <input type="text" class="form-control" id="reference" name="reference_number" placeholder="Enter reference number">
+                </div>
+            </div>
+			<div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label for="reference">Details</label>
+                    <input type="text" class="form-control" id="details" name="details" placeholder="Enter reference number">
                 </div>
             </div>
         </div>
     </div>
-
     <div class="modal-footer px-4">
         <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary btn-pill">Save Commission</button>

@@ -246,7 +246,7 @@ if ($result->num_rows > 0) {
 
     <div class="modal-footer px-4">
         <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary btn-pill">Save Contact</button>
+        <button type="submit" class="btn btn-primary btn-pill">Save Customer</button>
     </div>
 </form>
 
