@@ -59,12 +59,10 @@ if (isset($_GET['id'])) {
                 // If successful, redirect back to the previous page
                 header("Location: customer-list.php");
                 exit();
-            } else {
-                echo "Error updating customer: " . $conn->error;
-            }
+            } 
         }
 ?>
- <form method="post" action="edit_customer.php" >
+ <form method="post" action="" >
             <div class="modal-header px-4">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Edit Customer</h5>
             </div>

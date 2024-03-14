@@ -1,4 +1,3 @@
-
 <?php
 // Include your database connection file
 require_once '../db.php';
