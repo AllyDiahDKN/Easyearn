@@ -7,6 +7,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === false) {
     exit();
 }
 require_once 'db.php';
+// Default user ID
+$userID = $_SESSION['user_id'];
 ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -134,13 +136,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                                 
                                 <div class="col-lg-12">
                                     <div class="ec-vendor-upload-detail">
-
-                                    <?php
-
-// Default user ID
-$userID = $_SESSION['user_id'];;
-
-// Check if the form is submitted
+<?php
+                                    // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $firstName = $_POST['first_name'];
@@ -153,22 +150,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare($sql);
 
     // Bind parameters to the statement
-    $stmt->bind_param("ssiii", $firstName, $lastName, $transferTo,$mobile, $userID);
+    $stmt->bind_param("ssiii", $firstName, $lastName, $transferTo, $mobile, $userID);
 
     // Execute the statement
     if ($stmt->execute()) {
-        // Redirect to user profile page
-        header("Location: profile.php");
-        exit;
+        // Redirect to user profile page after successful update
+       // header("Location: profile.php");
+        //exit;
     } else {
         // Handle error message
         echo "Error updating user information: " . $conn->error;
     }
-         // Close the statement
-         $stmt->close();
-        }
 
-    // Fetch user details from the database
+    // Close the statement
+    $stmt->close();
+}
+
+// Fetch user details from the database
 $sql = "SELECT * FROM user WHERE user_id=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userID);
@@ -178,17 +176,17 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     // Output data of the user
     $row = $result->fetch_assoc();
-
-    // Close the statement
-    $stmt->close();
 } else {
     // Handle error message if user not found
     echo "User not found.";
     exit; // Exit the script if user not found
 }
 
-    
-?>
+// Close the statement
+$stmt->close();
+
+?>                       
+             <div style="color: red;alignment: center;"><p><?php echo "Success updating user information."; ?></p></div>
             <form class="row g-3" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="col-md-6">
                 <label for="FirstName" class="form-label">First Name</label>
@@ -206,6 +204,10 @@ if ($result->num_rows > 0) {
                 <label for="Mobile" class="form-label">Mobile Number</label>
                 <input type="number" class="form-control" id="mobile" name="mobile" value="<?php echo htmlspecialchars($row['mobile']); ?>">
             </div>
+            <div class="col-md-6">
+                <label for="TransferTo" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($row['password']); ?>">
+</div>
             <div class="col-md-6">
                 <label for="TransferTo" class="form-label">Transfer To</label>
                 <input type="number" class="form-control" id="Transfer_to" name="Transfer_to" value="<?php echo htmlspecialchars($row['Transfer_to']); ?>">

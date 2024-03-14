@@ -2,13 +2,13 @@
 // Include your database connection file here
 require_once '../db.php';
 
-// Check if admin ID is provided in the URL
+// Check if customer ID is provided in the URL
 if (isset($_GET['id'])) {
-    $adminId = $_GET['id'];
+    $customerId = $_GET['id'];
 
     // Prepare and bind parameters
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE id = ?");
-    $stmt->bind_param("i", $adminId);
+    $stmt = $conn->prepare("SELECT * FROM customers WHERE id = ?");
+    $stmt->bind_param("i", $customerId);
 
     // Execute the query
     $stmt->execute();
@@ -17,35 +17,35 @@ if (isset($_GET['id'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Fetch admin data
-        $adminData = $result->fetch_assoc();
+        // Fetch customer data
+        $customerData = $result->fetch_assoc();
 
-        // Insert admin data into deleted_admin table
-        $stmt = $conn->prepare("INSERT INTO deleted_admin (id, username, email, password, first_name, last_name, code, mobile, permission_type, activation, address_id, date_created, date_modified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssssssssiss", $adminData['id'], $adminData['username'], $adminData['email'], $adminData['password'], $adminData['first_name'], $adminData['last_name'], $adminData['code'], $adminData['mobile'], $adminData['permission_type'], $adminData['activation'], $adminData['address_id'], $adminData['date_created'], $adminData['date_modified']);
+        // Insert customer data into deleted_customers table
+        $stmt = $conn->prepare("INSERT INTO deleted_customers (id, first_name, last_name, email, city, country, mobile, address, user_id, house_number, date_created, time_created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssssssisss", $customerData['id'], $customerData['first_name'], $customerData['last_name'], $customerData['email'], $customerData['city'], $customerData['country'], $customerData['mobile'], $customerData['address'], $customerData['user_id'], $customerData['house_number'], $customerData['date_created'], $customerData['time_created']);
 
         if ($stmt->execute()) {
-            // Delete the admin from the admin table
-            $stmt = $conn->prepare("DELETE FROM admin WHERE id = ?");
-            $stmt->bind_param("i", $adminId);
+            // Delete the customer from the customer table
+            $stmt = $conn->prepare("DELETE FROM customers WHERE id = ?");
+            $stmt->bind_param("i", $customerId);
             if ($stmt->execute()) {
                 // If successful, redirect back to the previous page
                 header("Location: {$_SERVER['HTTP_REFERER']}");
                 exit();
             } else {
-                echo "Error deleting admin: " . $conn->error;
+                echo "Error deleting customer: " . $conn->error;
             }
         } else {
-            echo "Error inserting into deleted_admin table: " . $conn->error;
+            echo "Error inserting into deleted_customers table: " . $conn->error;
         }
     } else {
-        echo "Admin not found.";
+        echo "Customer not found.";
     }
 
     // Close statement
     $stmt->close();
 } else {
-    echo "Admin ID not provided.";
+    echo "Customer ID not provided.";
 }
 
 // Close connection

@@ -125,6 +125,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                                                                 <?php include 'dashboard_menu.php';?>
 
                             </div>
+                         
                         </div>
                     </div>
                 </div>
