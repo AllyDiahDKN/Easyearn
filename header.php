@@ -154,7 +154,7 @@ if ($userID) {
                     <ul>
                         <li><a href="index.php">Home</a></li>
                         <li><a href="javascript:void(0)">Categories</a>
-                            <ul class="sub-menu">
+                            <ul class="sub-menu"> 
                                 <?php
                                 // Fetch category names starting from the 8th category
                                 $query = "SELECT category_id, category_name FROM category"; // Assuming there are less than 100 categories
@@ -170,7 +170,7 @@ if ($userID) {
                                         $categoryId = $row['category_id'];
                                         $categoryName = $row['category_name'];
                                 ?>
-                                    <li><a href="shop.php?category_id=<?php echo $categoryId; ?>"><?php echo $categoryName; ?></a></li>
+                                    <li><a href="shop.php?category%5B%5D=<?php echo $categoryId; ?>"><?php echo $categoryName; ?></a></li>
 
                                 <?php
                                     }

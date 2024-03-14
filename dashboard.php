@@ -1,8 +1,10 @@
-<?php
-session_start();
+<?php 
+session_start(); 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === false) {
-    // User is logged in, redirect to dashboard.php
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // User is not logged in, redirect to login.php
     header("Location: login.php");
     exit();
 }
@@ -128,7 +130,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 </div>
                 <div class="ec-shop-rightside col-lg-9 col-md-12">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-3 col-md-6"> 
     <div class="ec-vendor-dashboard-sort-card color-blue">
         <h5>Sales</h5>
         <?php

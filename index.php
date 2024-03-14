@@ -52,6 +52,7 @@ include 'metatag.php';
                                     <h1 class="ec-slide-title">Unlock Your Potentials of <br>Earning Money</h1>
                                     <p>Start selling  for free and earn from 7% upto 10% monthly commission </p>
                                     <a href="register.php" class="btn btn-lg btn-primary">Become a Seller</a>
+                                    <a href="login.php" class="btn btn-lg btn-secondary">Login and Sell</a>
                                 </div>
                             </div>
                         </div>

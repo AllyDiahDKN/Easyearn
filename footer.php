@@ -17,10 +17,8 @@
                             <div class="footer-bottom-social">
                                 <span class="social-text text-upper">Follow us on:</span>
                                 <ul class="mb-0">
-                                    <li class="list-inline-item"><a class="hdr-facebook" href="#"><i class="ecicon eci-facebook"></i></a></li>
-                                    <li class="list-inline-item"><a class="hdr-twitter" href="#"><i class="ecicon eci-twitter"></i></a></li>
-                                    <li class="list-inline-item"><a class="hdr-instagram" href="#"><i class="ecicon eci-instagram"></i></a></li>
-                                    <li class="list-inline-item"><a class="hdr-linkedin" href="#"><i class="ecicon eci-linkedin"></i></a></li>
+                                    <li class="list-inline-item"><a class="hdr-facebook" href="https://www.facebook.com/profile.php?id=61550911965961&mibextid=qi2Omg"><i class="ecicon eci-facebook"></i></a></li>
+                                    <li class="list-inline-item"><a class="hdr-instagram" href="https://www.instagram.com/easyearntanzania/"><i class="ecicon eci-instagram"></i></a></li>
                                 </ul>
                             </div>
                         </div>

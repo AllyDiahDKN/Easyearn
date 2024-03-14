@@ -177,13 +177,14 @@ echo "<div class='ec-pro-variation'>";
 echo "<div class='ec-pro-variation-inner ec-pro-variation-size ec-pro-size'>";
 echo "<div class='ec-pro-variation-content'>";
 echo "<span class='ec-register-wrap ec-register-half'>";
-echo "<label>Choose size : </label>";
-echo "<span class='ec-rg-select-inner'>";
-echo "<form action='add_to_cart.php' method='post'>";
-echo "<input type='hidden' name='product_id' value='$productId'>";
+
 
 if ($availableSizesResult && $availableSizesResult->num_rows > 0) {
     // If sizes are available, display the size selection dropdown
+    echo "<label>Choose size : </label>";
+echo "<span class='ec-rg-select-inner'>";
+echo "<form action='add_to_cart.php' method='post'>";
+echo "<input type='hidden' name='product_id' value='$productId'>";
     echo "<select name='selected_size' class='ec-register-select'>";
 
     while ($sizeRow = $availableSizesResult->fetch_assoc()) {
@@ -196,6 +197,9 @@ if ($availableSizesResult && $availableSizesResult->num_rows > 0) {
     echo "</select>";
 } else {
     // If no sizes are available, set size to "N/A"
+echo "<span class='ec-rg-select-inner'>";
+echo "<form action='add_to_cart.php' method='post'>";
+echo "<input type='hidden' name='product_id' value='$productId'>";
     echo "<input type='hidden' name='selected_size' value='N/A'>";
 }
 
@@ -270,7 +274,7 @@ echo "</div>";
                                 die("Query failed: " . mysqli_error($conn));
                             }
 
-                            // Check if there are any categories
+                            // Check if there are any categories 
                             if (mysqli_num_rows($result) > 0) {
                                 // Loop through the results and generate HTML
                                 while ($row = mysqli_fetch_assoc($result)) {
