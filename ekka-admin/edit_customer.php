@@ -25,11 +25,11 @@ require_once '../db.php'; // Include your database connection file here
                     <div class="modal-content">
                     <?php
                     // Check if customer_id is set and numeric
-                    if (isset($_GET['customer_id']) && is_numeric($_GET['customer_id'])) {
-                        $customerId = $_GET['customer_id'];
+                    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                        $customerId = $_GET['id'];
                     
                         // Retrieve customer data for editing
-                        $sql = "SELECT * FROM customers WHERE customer_id = '$customerId'";
+                        $sql = "SELECT * FROM customers WHERE id = '$customerId'";
                         $result = $conn->query($sql);
                     
                         if ($result->num_rows > 0) {
@@ -60,7 +60,7 @@ require_once '../db.php'; // Include your database connection file here
                                                 address = '$newAddress', 
                                                 user_id = '$newUserId', 
                                                 house_number = '$newHouseNumber' 
-                                                WHERE customer_id = '$customerId'";
+                                                WHERE id = '$customerId'";
                     
                                 if ($conn->query($updateQuery) === TRUE) {
                                     // Redirect back to customer-list.php or wherever you want
