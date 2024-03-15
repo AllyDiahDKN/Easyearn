@@ -133,7 +133,7 @@ if (isset($_GET['user_id'])) {
                                         </div>
                                     </div>
                                     <div class="modal-footer px-4">
-                                        <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
+                                        <a href="user-list.php" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</a>
                                         <button type="submit" class="btn btn-primary btn-pill" name="update_user">Update User</button>
                                     </div>
                                 </form>
