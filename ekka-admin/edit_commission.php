@@ -160,7 +160,7 @@ require_once '../db.php'; // Include your database connection file here
         </div>
     </div>
     <div class="modal-footer px-4">
-        <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
+        <a href="commission.php" type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</a>
         <button type="submit" class="btn btn-primary btn-pill" name="update_commission">Update Commission</button>
     </div>
 </form>

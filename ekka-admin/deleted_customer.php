@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
         // Fetch customer data
         $customerData = $result->fetch_assoc();
 
-        // Insert customer data into deleted_customers table
+      // Insert customer data into deleted_customers table
         $stmt = $conn->prepare("INSERT INTO deleted_customers (id, first_name, last_name, email, city, country, mobile, address, user_id, house_number, date_created, time_created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssssssisss", $customerData['id'], $customerData['first_name'], $customerData['last_name'], $customerData['email'], $customerData['city'], $customerData['country'], $customerData['mobile'], $customerData['address'], $customerData['user_id'], $customerData['house_number'], $customerData['date_created'], $customerData['time_created']);
 
@@ -39,7 +39,7 @@ if (isset($_GET['id'])) {
             echo "Error inserting into deleted_customers table: " . $conn->error;
         }
     } else {
-        echo "Customer not found.";
+        echo "customer not found.";
     }
 
     // Close statement

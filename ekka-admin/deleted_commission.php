@@ -2,6 +2,7 @@
 // Include your database connection file here
 require_once '../db.php';
 
+
 // Check if commission ID is provided in the URL
 if (isset($_GET['commission_id'])) {
     $commissionId = $_GET['commission_id'];
@@ -17,6 +18,7 @@ if (isset($_GET['commission_id'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+
         // Fetch commission data
         $commissionData = $result->fetch_assoc();
 
@@ -45,6 +47,7 @@ if (isset($_GET['commission_id'])) {
     // Close statement
     $stmt->close();
 } else {
+
     echo "Commission ID not provided.";
 }
 
