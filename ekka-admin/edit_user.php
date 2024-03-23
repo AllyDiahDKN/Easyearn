@@ -51,7 +51,10 @@ if (isset($_GET['user_id'])) {
             $newMobile = $_POST['mobile'];
             $newAddressId = $_POST['address_id'];
 
-            // Update user data in the user table
+            // Hash the new password
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+            // Update user data in the user table with hashed password
             $updateQuery = "UPDATE user SET 
                             first_name = '$newFirstName', 
                             last_name = '$newLastName', 
@@ -70,8 +73,7 @@ if (isset($_GET['user_id'])) {
             }
         }
     }
-
-?>
+?> 
 
                            
                                 <form action="edit_user.php?user_id=<?php echo $userId; ?>" method="post">
@@ -138,7 +140,7 @@ if (isset($_GET['user_id'])) {
                                         </div>
                                     </div>
                                     <div class="modal-footer px-4">
-                                        <button type="button" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</button>
+                                        <a href="user-list.php" class="btn btn-secondary btn-pill" data-bs-dismiss="modal">Cancel</a>
                                         <button type="submit" class="btn btn-primary btn-pill" name="update_user">Update User</button>
                                     </div>
                                 </form>
