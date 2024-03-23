@@ -43,7 +43,11 @@ if (isset($_GET['user_id'])) {
             $newLastName = $_POST['last_name'];
             $newUsername = $_POST['username'];
             //$newEmail = $_POST['email'];
-            $newPassword = $_POST['password'];
+            $newPassword = $_POST['password']; // Assuming the password is plaintext here
+            
+            // Hash the password
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            
             $newMobile = $_POST['mobile'];
             $newAddressId = $_POST['address_id'];
 
@@ -52,7 +56,7 @@ if (isset($_GET['user_id'])) {
                             first_name = '$newFirstName', 
                             last_name = '$newLastName', 
                             username = '$newUsername',                                                          
-                            password = '$newPassword', 
+                            password = '$hashedPassword', 
                             mobile = '$newMobile', 
                             address_id = '$newAddressId' 
                             WHERE user_id = '$userId'";
@@ -67,7 +71,8 @@ if (isset($_GET['user_id'])) {
         }
     }
 
-?> 
+?>
+
                            
                                 <form action="edit_user.php?user_id=<?php echo $userId; ?>" method="post">
                                     <div class="modal-header px-4">
