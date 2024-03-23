@@ -167,6 +167,55 @@
 							<hr>
 						</li>
 
+								<!-- Deleted fields -->
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="javascript:void(0)">
+								<i class="mdi mdi-delete-outline"></i>
+								<span class="nav-text">Deleted Fields</span> <b class="caret"></b>
+							</a>
+							<div class="collapse">
+								<ul class="sub-menu" id="vendors" data-parent="#sidebar-menu">
+									<li class="">
+										<a class="sidenav-item-link" href="admin_deleted.php">
+											<span class="nav-text">Admin</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="user_deleted.php">
+											<span class="nav-text">Seller</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="customer_deleted.php">
+											<span class="nav-text">Customer</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="category_deleted.php">
+											<span class="nav-text">Category</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="product_deleted.php">
+											<span class="nav-text">Product</span>
+										</a>
+									</li>
+
+									<li class="">
+										<a class="sidenav-item-link" href="commission_deleted.php">
+											<span class="nav-text">Commissison</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="brand_deleted.php">
+											<span class="nav-text">Brand </span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+
+
 						<!-- Authentication -->
 						<li class="has-sub">
 							<a class="sidenav-item-link" href="javascript:void(0)">

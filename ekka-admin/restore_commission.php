@@ -7,7 +7,7 @@ if (isset($_GET['commission_id'])) {
     $commissionId = $_GET['commission_id'];
 
     // Prepare and bind parameters to select commission data
-    $stmt = $conn->prepare("SELECT * FROM commission WHERE commission_id = ?");
+    $stmt = $conn->prepare("SELECT * FROM deleted_commission WHERE commission_id = ?");
     $stmt->bind_param("i", $commissionId);
 
     // Execute the query
@@ -21,12 +21,12 @@ if (isset($_GET['commission_id'])) {
         $commissionData = $result->fetch_assoc();
 
         // Insert commission data into deleted_commission table
-        $stmt = $conn->prepare("INSERT INTO deleted_commission (commission_id, user_id, payment, issued_by, reference_number, details, date) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO commission (commission_id, user_id, payment, issued_by, reference_number, details, date) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("iisssss", $commissionData['commission_id'], $commissionData['user_id'], $commissionData['payment'], $commissionData['issued_by'], $commissionData['reference_number'], $commissionData['details'], $commissionData['date']);
 
         if ($stmt->execute()) {
             // Delete the commission from the commission table
-            $stmt = $conn->prepare("DELETE FROM commission WHERE commission_id = ?");
+            $stmt = $conn->prepare("DELETE FROM deleted_commission WHERE commission_id = ?");
             $stmt->bind_param("i", $commissionId);
             if ($stmt->execute()) {
                 // If successful, redirect back to the previous page
