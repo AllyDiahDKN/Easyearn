@@ -29,8 +29,11 @@ if (isset($_GET['user_id'])) {
     $userId = $_GET['user_id'];
 
     // Retrieve user data for editing
-    $sql = "SELECT * FROM user WHERE user_id = '$userId'";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM user WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         // Fetch user data
@@ -56,24 +59,27 @@ if (isset($_GET['user_id'])) {
 
             // Update user data in the user table with hashed password
             $updateQuery = "UPDATE user SET 
-                            first_name = '$newFirstName', 
-                            last_name = '$newLastName', 
-                            username = '$newUsername',                                                          
-                            password = '$hashedPassword', 
-                            mobile = '$newMobile', 
-                            address_id = '$newAddressId' 
-                            WHERE user_id = '$userId'";
+                            first_name = ?, 
+                            last_name = ?, 
+                            username = ?,                                                          
+                            password = ?, 
+                            mobile = ?, 
+                            address_id = ? 
+                            WHERE user_id = ?";
+            $stmt = $conn->prepare($updateQuery);
+            $stmt->bind_param("sssssii", $newFirstName, $newLastName, $newUsername, $hashedPassword, $newMobile, $newAddressId, $userId);
 
-            if ($conn->query($updateQuery) === TRUE) {
+            if ($stmt->execute()) {
                 // Redirect back to user-list.php
                 header("Location: user-list.php");
                 exit();
             } else {
-                echo "Error updating user: " . $conn->error;
+                echo "Error updating user: " . $stmt->error;
             }
         }
     }
 ?> 
+
 
                            
                                 <form action="edit_user.php?user_id=<?php echo $userId; ?>" method="post">
